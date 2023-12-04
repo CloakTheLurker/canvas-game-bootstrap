@@ -30,7 +30,7 @@ function main() {
 
     lastTime = now;
     requestAnimFrame(main);
-};
+}
 
 function init() {
     terrainPattern = ctx.createPattern(resources.get('img/terrain.png'), 'repeat');
@@ -94,7 +94,7 @@ function update(dt) {
     checkCollisions();
 
     scoreEl.innerHTML = score;
-};
+}
 
 function handleInput(dt) {
     if(input.isDown('DOWN') || input.isDown('s')) {
@@ -157,7 +157,7 @@ function updateEntities(dt) {
     }
 
     // Update all the enemies
-    for(var i=0; i<enemies.length; i++) {
+    for(i=0; i<enemies.length; i++) {
         enemies[i].pos[0] -= enemySpeed * dt;
         enemies[i].sprite.update(dt);
 
@@ -169,7 +169,7 @@ function updateEntities(dt) {
     }
 
     // Update all the explosions
-    for(var i=0; i<explosions.length; i++) {
+    for(i=0; i<explosions.length; i++) {
         explosions[i].sprite.update(dt);
 
         // Remove if animation is done
@@ -268,7 +268,7 @@ function render() {
     renderEntities(bullets);
     renderEntities(enemies);
     renderEntities(explosions);
-};
+}
 
 function renderEntities(list) {
     for(var i=0; i<list.length; i++) {
@@ -302,4 +302,4 @@ function reset() {
     bullets = [];
 
     player.pos = [50, canvas.height / 2];
-};
+}
