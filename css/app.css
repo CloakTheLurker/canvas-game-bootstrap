@@ -18,21 +18,27 @@ canvas {
 .wrapper {
     width: 512px;
     margin: 0 auto;
-    margin-top: 2em;
+    margin-top: 0em;
 }
 
 #instructions {
-    float: left;
     font-family: sans-serif;
     color: #757575;
 }
-
-#score {
+#health{
+    float: left;
+    color: white;
+    font-size: 2em;
+}
+#score{
     float: right;
     color: white;
     font-size: 2em;
 }
-
+.params{
+    height:40px;
+    width:100%;
+}
 .key {
     color: #aaffdd;
 }
