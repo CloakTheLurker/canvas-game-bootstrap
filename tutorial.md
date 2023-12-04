@@ -111,10 +111,7 @@ This gets really tedious though if you have several images to load. You need to 
     }
 
     function _load(url) {
-        if(resourceCache[url]) {
-            return resourceCache[url];
-        }
-        else {
+        if( ! resourceCache[url]) {
             var img = new Image();
             img.onload = function() {
                 resourceCache[url] = img;
