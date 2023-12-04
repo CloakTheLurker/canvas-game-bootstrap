@@ -30,7 +30,7 @@ function main() {
 
     lastTime = now;
     requestAnimFrame(main);
-}
+};
 
 function init() {
     terrainPattern = ctx.createPattern(resources.get('img/terrain.png'), 'repeat');
@@ -52,6 +52,7 @@ resources.onReady(init);
 
 // Game state
 var player = {
+    health: 100,
     pos: [0, 0],
     sprite: new Sprite('img/sprites.png', [0, 0], [39, 39], 16, [0, 1])
 };
@@ -67,6 +68,7 @@ var terrainPattern;
 
 var score = 0;
 var scoreEl = document.getElementById('score');
+var healtEl = document.getElementById('health-value');
 
 // Speed in pixels per second
 var playerSpeed = 200;
@@ -94,7 +96,8 @@ function update(dt) {
     checkCollisions();
 
     scoreEl.innerHTML = score;
-}
+    healtEl.innerHTML = player.health;
+};
 
 function handleInput(dt) {
     if(input.isDown('DOWN') || input.isDown('s')) {
@@ -157,7 +160,7 @@ function updateEntities(dt) {
     }
 
     // Update all the enemies
-    for(i=0; i<enemies.length; i++) {
+    for(var i=0; i<enemies.length; i++) {
         enemies[i].pos[0] -= enemySpeed * dt;
         enemies[i].sprite.update(dt);
 
@@ -169,7 +172,7 @@ function updateEntities(dt) {
     }
 
     // Update all the explosions
-    for(i=0; i<explosions.length; i++) {
+    for(var i=0; i<explosions.length; i++) {
         explosions[i].sprite.update(dt);
 
         // Remove if animation is done
@@ -233,7 +236,23 @@ function checkCollisions() {
         }
 
         if(boxCollides(pos, size, player.pos, player.sprite.size)) {
-            gameOver();
+            if (player.health == 0){
+                gameOver();
+            }else{
+                player.health -= 10
+                enemies.splice(i, 1);
+                i--;
+                explosions.push({
+                    pos: pos,
+                    sprite: new Sprite('img/sprites.png',
+                        [0, 117],
+                        [39, 39],
+                        16,
+                        [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                        null,
+                        true)
+                });
+            }
         }
     }
 }
@@ -268,7 +287,7 @@ function render() {
     renderEntities(bullets);
     renderEntities(enemies);
     renderEntities(explosions);
-}
+};
 
 function renderEntities(list) {
     for(var i=0; i<list.length; i++) {
@@ -302,4 +321,4 @@ function reset() {
     bullets = [];
 
     player.pos = [50, canvas.height / 2];
-}
+};
