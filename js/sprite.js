@@ -9,7 +9,7 @@
         this.url = url;
         this.dir = dir || 'horizontal';
         this.once = once;
-    };
+    }
 
     Sprite.prototype = {
         update: function(dt) {
